@@ -1,22 +1,38 @@
+import { render, Fragment } from "preact"
+import { html } from 'htm/preact';
 import { define } from "wicked-elements";
 import "./styleit.css"
+import b from "bss"
 
+const linkcolor = (color) => b`c:${color}`;
 
-const content = (elt) => `
-  <div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" name="closeNav">&times;</a>
-    ${elt.links.map((l) => `<a name="closeNav" href=${l.target}>${l.label}</a>`)}
-  </div>
-  <span style="font-size:30px;cursor:pointer" name="openNav">&#9776;</span>
-`;
+function decode(str) {
+  const s = str ;
+  let e = document.createElement("span");
+  e.innerHTML = s;
+  return e.innerText;
+}
 
-
-window.closeNav = () => {
-  document.getElementById("mySidenav").style.width = "0";
+const SideBar = ({ elt }) => {
+  return html`
+    <${Fragment}>
+      <div id="mySidenav" class="sidenav">
+        <a class=${`closebtn ${linkcolor(elt.col)}`} onclick=${elt.closeNav}>${decode("&times;")}</a>
+        ${elt.links.map(
+          (l) => html`<a name="closeNav" href="${l.target}">${l.label}</a>`
+        )}
+      </div>
+      <span style="font-size:30px;cursor:pointer" onclick=${elt.openNav}
+        >${decode("&#9776;")}</span
+      >
+    </${Fragment}>
+  `;
 };
 
 const sideBarConfig = {
   init() {
+    this.col = this.element.getAttribute("color");
+    this.width = this.element.getAttribute("width");
     this.allLinks = Array.from(this.element.querySelectorAll("my-link"));
     this.links = this.allLinks.map((l) => ({
       label: l.getAttribute("label"),
@@ -24,26 +40,19 @@ const sideBarConfig = {
     }));
   },
   connected() {
-    this.element.innerHTML = `${content(this)}`;
-    document
-      .querySelector("[name='openNav']")
-      .addEventListener("click", this.openNavBar);
-    document
-      .querySelector("[name='closeNav']")
-      .addEventListener("click", this.closeNavBar);      
+    render(html`<${SideBar} elt=${this} />`, this.element);
   },
-  openNavBar() {
-   
-    document.getElementById("mySidenav").style.width = "250px";
+  openNav() {
+    mySidenav.style.width = "250px";
   },
-  closeNavBar() {
-    console.log("closing...")
-    document.getElementById("mySidenav").style.width = "0";
-  }
+  closeNav() {
+    mySidenav.style.width = "0px";
+  },
 };
 
 define("my-sidebar", sideBarConfig);
 
+
 define("my-link", {
-  connected() {},
+  connected() { },
 });
