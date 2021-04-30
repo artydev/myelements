@@ -1,0 +1,25 @@
+{
+  "name": "myelements",
+  "version": "1.0.0",
+  "description": "Custom elements created with WickedElements",
+  "main": "index.js",
+  "dependencies": {
+    "snowpack": "^3.3.7",
+    "wicked-elements": "^3.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artydev/myelements.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/artydev/myelements/issues"
+  },
+  "homepage": "https://github.com/artydev/myelements#readme"
+}
