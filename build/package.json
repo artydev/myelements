@@ -4,7 +4,11 @@
   "description": "Custom elements created with WickedElements",
   "main": "index.js",
   "dependencies": {
+    "bss": "^1.6.4",
+    "htm": "^3.0.4",
+    "preact": "^10.5.13",
     "snowpack": "^3.3.7",
+    "uhtml": "^2.7.3",
     "wicked-elements": "^3.1.1"
   },
   "devDependencies": {},
